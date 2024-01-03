@@ -18,7 +18,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://client-social-login.onrender.com'], credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ExpressMongoSanitize());

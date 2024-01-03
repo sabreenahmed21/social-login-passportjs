@@ -6,7 +6,7 @@ export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async (_, { dispatch }) => {
     try {
-      const response = await axios.get("http://localhost:5001/auth/user", {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/user`, {
         withCredentials: true,
       });
       if (response.status === 200) return response.data.user;
