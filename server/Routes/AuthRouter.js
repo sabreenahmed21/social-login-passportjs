@@ -34,22 +34,6 @@ router.get(
   }
 );
 
-router.get(
-  "/github",
-  passport.authenticate("github", { scope: ["user:email"] })
-);
-router.get(
-  "/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
-  function (req, res) {
-    const redirectURL =
-      process.env.NODE_ENV === "production"
-        ? "https://client-social-login.onrender.com"
-        : "http://localhost:3000";
-    res.redirect(redirectURL);
-  }
-);
-
 router.get("/logout", (req, res) => {
   try {
     req.logout(() => {

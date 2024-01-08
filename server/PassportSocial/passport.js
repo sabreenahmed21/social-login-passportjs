@@ -2,8 +2,6 @@ import google from "passport-google-oauth20";
 const GoogleStrategy = google.Strategy;
 import twitter from "passport-twitter";
 const TwitterStrategy = twitter.Strategy;
-import github from "passport-github2";
-const GitHubStrategy = github.Strategy;
 import User from "../Models/UserModel.js";
 import passport from "passport";
 
@@ -50,32 +48,6 @@ passport.use(
         if (!user) {
           const newUser = new User({
             twitterId: profile.id,
-            name: profile.displayName,
-          });
-          await newUser.save();
-          return cb(null, newUser);
-        }
-        cb(null, user);
-      } catch (err) {
-        cb(err, null);
-      }
-    }
-  )
-);
-passport.use(
-  new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
-    },
-    async function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
-      try {
-        const user = await User.findOne({ githubId: profile.id });
-        if (!user) {
-          const newUser = new User({
-            githubId: profile.id,
             name: profile.displayName,
           });
           await newUser.save();

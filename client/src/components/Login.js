@@ -1,6 +1,5 @@
 import {
   GoogleLoginButton,
-  GithubLoginButton,
   TwitterLoginButton,
 } from "react-social-login-buttons";
 
@@ -18,9 +17,6 @@ export default function Login() {
       <GoogleLoginButton
         text="Continue with Google"
         onClick={() => login(`${process.env.REACT_APP_BASE_URL}/auth/google`)}
-      />
-      <GithubLoginButton
-        onClick={() => login(`${process.env.REACT_APP_BASE_URL}/auth/github`)}
       />
       <TwitterLoginButton
         text=""
