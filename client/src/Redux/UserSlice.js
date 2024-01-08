@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk(
       console.log(response);
       if (response.status === 200) return response.data.user;
     } catch (error) {
-      console.error("Error fetching user data");
+      console.error("Error fetching user data", error);
       throw error;
     }
   }
