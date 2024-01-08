@@ -9,6 +9,7 @@ export const fetchUserData = createAsyncThunk(
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/user`, {
         withCredentials: true,
       });
+      console.log(response);
       if (response.status === 200) return response.data.user;
     } catch (error) {
       console.error("Error fetching user data");
