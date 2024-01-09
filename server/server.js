@@ -34,21 +34,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  const allowedOrigins = ['https://client-social-login.onrender.com', 'http://localhost:3000'];
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  next();
-});
-
 
 /*PASSPORT STRATEGY*/
 import ('./PassportSocial/passport.js');
-
-
 
 /*ROUTES*/
 app.use("/api", userRouter);
