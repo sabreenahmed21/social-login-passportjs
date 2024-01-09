@@ -63,7 +63,7 @@ router.get("/user", async (req, res) => {
       
       res.status(200).json({
         state: "success",
-        user: user || 'no user',
+        user: user ,
       
       });
   } catch (error) {
