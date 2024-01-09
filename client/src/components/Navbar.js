@@ -17,6 +17,7 @@ export default function Navbar() {
     };
     fetchUser();
   }, [dispatch]);
+  console.log("userData", userData); 
 
   const handleLogout = async () => {
     try {

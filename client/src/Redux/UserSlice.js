@@ -10,6 +10,7 @@ export const fetchUserData = createAsyncThunk(
         withCredentials: true,
       });
       console.log(response);
+      console.log('response.data.user', response.data.user); 
       if (response.status === 200) return response.data.user;
     } catch (error) {
       console.error("Error fetching user data", error);
@@ -59,7 +60,7 @@ export const userSlice = createSlice({
         state.error = null;
         state.currentUser = action.payload;
         state.isAuthenticated = true;
-      })
+      })    
       .addCase(fetchUserData.rejected, (state, action) => {
         state.loading = false;
         state.error = "Error fetching user data";
