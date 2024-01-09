@@ -59,22 +59,14 @@ router.get("/logout", (req, res) => {
 
 router.get("/user", (req, res) => {
   try {
-    const user = req.user;
-    const use = {
-      createdAt: "2024-01-09T10:51:24.252Z",
-      email: "sabreenahmed4444@gmail.com",
-      googleId: "107950339171157152005",
-      name: "Sabreen Ahmed",
-      updatedAt: "2024-01-09T10:51:24.252Z",
-      __v: 0,
-      _id: "659d252c222c9b4ca60086d7",
-    };
-    res.status(200).json({
-      state: "success",
-      user,
-      use,
-    });
-  } catch (error) {
+    if (req.isAuthenticated()) {
+      const user = req.user;
+      res.status(200).json({
+        state: "success",
+        user,
+      });
+    }
+  } catch (error ) {
     res.status(500).json({
       state: "error",
       message: "Internal server error",
