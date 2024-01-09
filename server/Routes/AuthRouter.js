@@ -56,16 +56,16 @@ router.get("/logout", (req, res) => {
 //     });
 //   }
 // });
-router.get("/user", (req, res) => {
+
+router.get("/user", async (req, res) => {
   try {
-    if (req.isAuthenticated()) {
+    if(req.user){
       const user = req.user;
+      console.log(user);
       res.status(200).json({
         state: "success",
         user,
       });
-    } else {
-      throw new Error("User not authenticated");
     }
   } catch (error) {
     console.error("Error in /user route:", error);
