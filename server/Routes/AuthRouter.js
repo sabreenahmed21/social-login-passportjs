@@ -68,7 +68,7 @@ router.get("/user", (req, res) => {
       throw new Error("User not authenticated");
     }
   } catch (error) {
-    console.error("Error in /user route:", error.message);
+    console.error("Error in /user route:", error);
     res.status(500).json({
       state: "error",
       message: "Internal server error",
