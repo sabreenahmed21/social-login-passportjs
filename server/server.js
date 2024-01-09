@@ -30,7 +30,8 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      sameSite: 'None',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
     },
   })
 );
