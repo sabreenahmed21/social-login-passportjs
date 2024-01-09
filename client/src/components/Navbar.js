@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../Redux/UserSlice.js";
+import { logout , signInSuccess} from "../Redux/UserSlice.js";
 import axios from "axios";
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
           }
         );
         console.log(response);
-        if (response.status === 200) return response.data.user;
+        if (response.status === 200) {return dispatch(signInSuccess(response.data.user))};
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
