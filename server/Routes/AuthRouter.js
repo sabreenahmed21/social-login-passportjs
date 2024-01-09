@@ -64,6 +64,7 @@ router.get("/user", async (req, res) => {
       res.status(200).json({
         state: "success",
         user,
+        user: user,
       });
   } catch (error) {
     console.error("Error in /user route:", error);
