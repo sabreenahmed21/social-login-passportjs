@@ -29,6 +29,9 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
+    cookie: {
+      sameSite: 'None',
+    },
   })
 );
 app.use(passport.initialize());
