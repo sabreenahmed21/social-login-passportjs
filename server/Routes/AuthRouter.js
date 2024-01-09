@@ -60,14 +60,11 @@ router.get("/logout", (req, res) => {
 router.get("/user", async (req, res) => {
   try {
       const user = req.user;
-      console.log(user);
       res.status(200).json({
         state: "success",
         user,
-        user: user,
       });
   } catch (error) {
-    console.error("Error in /user route:", error);
     res.status(500).json({
       state: "error",
       message: "Internal server error",
