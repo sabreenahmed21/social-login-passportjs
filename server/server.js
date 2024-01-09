@@ -29,10 +29,10 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    // cookie: {
-    //   secure: process.env.NODE_ENV === 'production',
-    //   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    // },
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    },
   })
 );
 app.use(passport.initialize());
@@ -56,9 +56,12 @@ app.use(globalError);
 
 /*CONNECTING DB MONGOO */
 const db = process.env.BASE_URL.replace("<password>", process.env.PASSWORD_URL);
-mongoose.connect(db).then(() => {
-  console.log("Connected to Mongoose database ");
-});
+try {
+  await mongoose.connect(db);
+  console.log("Connected to Mongoose database");
+} catch (error) {
+  console.error("Error connecting to MongoDB:", error);
+}
 
 const port = process.env.PORT || 5001;
 app.listen(port, () => {
