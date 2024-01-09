@@ -60,11 +60,11 @@ router.get("/logout", (req, res) => {
 router.get("/user", async (req, res) => {
   try {
       const user = req.user;
-      const re = req;
+      
       res.status(200).json({
         state: "success",
         user: user || 'no user',
-        re,
+      
       });
   } catch (error) {
     res.status(500).json({
