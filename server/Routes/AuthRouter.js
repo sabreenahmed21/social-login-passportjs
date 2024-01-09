@@ -60,6 +60,7 @@ router.get("/logout", (req, res) => {
 router.get("/user", async (req, res) => {
   try {
       const user = req.user;
+      console.log(user, req);
       res.status(200).json({
         state: "success",
         user,
