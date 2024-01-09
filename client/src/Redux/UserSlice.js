@@ -60,10 +60,11 @@ export const userSlice = createSlice({
         state.currentUser = action.payload;
         state.isAuthenticated = true;
       })
-      .addCase(fetchUserData.rejected, (state) => {
+      .addCase(fetchUserData.rejected, (state, action) => {
         state.loading = false;
         state.error = "Error fetching user data";
         state.isAuthenticated = false;
+        console.error(action.error);
       });
   },
 });
