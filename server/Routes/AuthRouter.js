@@ -47,32 +47,14 @@ router.get("/logout", (req, res) => {
   }
 });
 
-// router.get("/user", (req, res) => {
-//   if (req.isAuthenticated()) {
-//     const user = req.user;
-//     res.status(200).json({
-//       state: "success",
-//       user,
-//     });
-//   }
-// });
-
-router.get("/user", async (req, res) => {
-  try {
-      const user = req.user;
-      
-      res.status(200).json({
-        state: "success",
-        user: user ,
-      
-      });
-  } catch (error) {
-    res.status(500).json({
-      state: "error",
-      message: "Internal server error",
+router.get("/user", (req, res) => {
+  if (req.isAuthenticated()) {
+    const user = req.user;
+    res.status(200).json({
+      state: "success",
+      user,
     });
   }
 });
-
 
 export default router;

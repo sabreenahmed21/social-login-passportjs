@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout, fetchUserData } from "../Redux/UserSlice.js";
+import { logout } from "../Redux/UserSlice.js";
+import axios from "axios";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -10,21 +11,30 @@ export default function Navbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        await dispatch(fetchUserData());
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/auth/user`,
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+        if (response.status === 200) return response.data.user;
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
     fetchUser();
   }, [dispatch]);
-  console.log("userData", userData); 
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/auth/logout`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
         await dispatch(logout());
       } else {
