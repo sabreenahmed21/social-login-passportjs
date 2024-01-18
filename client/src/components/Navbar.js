@@ -18,6 +18,7 @@ export default function Navbar() {
           }
         );
         console.log(response);
+        debugger
         if (response.status === 200) {return dispatch(signInSuccess(response.data.user))};
       } catch (error) {
         console.error("Error fetching user data:", error);
