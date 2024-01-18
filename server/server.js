@@ -9,16 +9,23 @@ import ExpressMongoSanitize from "express-mongo-sanitize";
 import globalError from "./Controllers/ErrorController.js";
 import session from "express-session";
 import passport from "passport";
-import userRouter from './Routes/UserRouter.js';
-import  authRouter from './Routes/AuthRouter.js';
-
+import userRouter from "./Routes/UserRouter.js";
+import authRouter from "./Routes/AuthRouter.js";
 
 /*MIDDLEWARE*/
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: ['http://localhost:3000', 'https://client-social-login.onrender.com'], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://client-social-login.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ExpressMongoSanitize());
@@ -29,6 +36,11 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
+    cookie: {
+      httpOnly: false,
+      secure: true, // Set to true if using HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    },
     // cookie: {
     //   secure: process.env.NODE_ENV === 'production',
     //   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
@@ -38,19 +50,21 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 /*PASSPORT STRATEGY*/
-import ('./PassportSocial/passport.js');
+import("./PassportSocial/passport.js");
 
 /*ROUTES*/
 app.use("/api", userRouter);
-app.use('/auth', authRouter)
+app.use("/auth", authRouter);
 
 // Middleware to enable CORS
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://client-social-login.onrender.com');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://client-social-login.onrender.com"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
 
