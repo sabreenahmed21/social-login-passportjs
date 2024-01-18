@@ -36,15 +36,11 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    // cookie: {
-    //   httpOnly: false,
-    //   secure: true, // Set to true if using HTTPS
-    //   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    // },
-    // cookie: {
-    //   secure: process.env.NODE_ENV === 'production',
-    //   sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-    // },
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      secure: process.env.NODE_ENV === 'production',
+      domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined
+    }
   })
 );
 app.use(passport.initialize());
